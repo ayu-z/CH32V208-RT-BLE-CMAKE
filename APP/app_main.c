@@ -3,15 +3,15 @@
  * Author             : WCH
  * Version            : V1.1
  * Date               : 2022/05/10
- * Description        : FreeRTOSÀý³Ì£¬Ê¹ÓÃÓ²¼þÑ¹Õ»£¬½ûÓÃÖÐ¶ÏÇ¶Ì×£¬ÖÐ¶Ïº¯Êý²»ÔÙÊ¹ÓÃÐÞÊÎ
- *                      __attribute__((interrupt("WCH-Interrupt-fast")))£¬
- *                      ÖÐ¶Ïº¯ÊýÖ±½Ó°´ÕÕÆÕÍ¨º¯Êý¶¨Òå£¬Ö»Ê¹ÓÃHIGHCODEÐÞÊÎ¼´¿É¡£
+ * Description        : FreeRTOSä¾‹ç¨‹ï¼Œä½¿ç”¨ç¡¬ä»¶åŽ‹æ ˆï¼Œç¦ç”¨ä¸­æ–­åµŒå¥—ï¼Œä¸­æ–­å‡½æ•°ä¸å†ä½¿ç”¨ä¿®é¥°
+ *                      __attribute__((interrupt("WCH-Interrupt-fast")))ï¼Œ
+ *                      ä¸­æ–­å‡½æ•°ç›´æŽ¥æŒ‰ç…§æ™®é€šå‡½æ•°å®šä¹‰ï¼Œåªä½¿ç”¨HIGHCODEä¿®é¥°å³å¯ã€‚
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * SPDX-License-Identifier: Apache-2.0
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼þ°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "debug.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -25,7 +25,7 @@
  * GLOBAL TYPEDEFS
  */
 #define TASK1_TASK_PRIO     5
-#define TASK1_STK_SIZE      256     /* ÒòÔÚÈÎÎñÖÐÊ¹ÓÃÁËAPP_PrintfËùÒÔÕ»¿Õ¼ä±ØÐëÒª´óÓÚ´òÓ¡¿ÉÄÜÓÃµ½µÄ×î´óÕ»¿Õ¼ä */
+#define TASK1_STK_SIZE      256     /* å› åœ¨ä»»åŠ¡ä¸­ä½¿ç”¨äº†APP_Printfæ‰€ä»¥æ ˆç©ºé—´å¿…é¡»è¦å¤§äºŽæ‰“å°å¯èƒ½ç”¨åˆ°çš„æœ€å¤§æ ˆç©ºé—´ */
 #define TASK2_TASK_PRIO     5
 #define TASK2_STK_SIZE      256
 #define TASK3_TASK_PRIO     configMAX_PRIORITIES - 2
@@ -53,7 +53,7 @@ void App_Printf(const char *fmt, ...)
 {
     va_list   v_args;
 
-    /* »¥³âÁ¿²Ù×÷£¬²»¿ÉÔÚÖÐ¶ÏÖÐÊ¹ÓÃ */
+    /* äº’æ–¥é‡æ“ä½œï¼Œä¸å¯åœ¨ä¸­æ–­ä¸­ä½¿ç”¨ */
     xSemaphoreTake(printMutex, portMAX_DELAY);
 
     va_start(v_args, fmt);
@@ -115,7 +115,7 @@ void gpio_int_init(void)
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-    /* ¿ªÆôNSSÏÂ½µÑØÖÐ¶Ï */
+    /* å¼€å¯NSSä¸‹é™æ²¿ä¸­æ–­ */
     GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource1);
     EXTI_InitStructure.EXTI_Line = EXTI_Line1;
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
@@ -203,14 +203,14 @@ void tmos_task(void *pvParameters)
     GAPRole_PeripheralInit();
     Peripheral_Init();
 #ifdef WCHBLE_ROM
-    /* ¹Ì¶¨¿âÐèÒªÊÖ¶¯ÐÞ¸ÄÖÐ¶ÏÏòÁ¿±í */
+    /* å›ºå®šåº“éœ€è¦æ‰‹åŠ¨ä¿®æ”¹ä¸­æ–­å‘é‡è¡¨ */
     do
     {
         extern uint32_t _BB_IRQHandler_base[1];
         _BB_IRQHandler_base[0] = (uint32_t)BB_IRQLibHandler;
     } while (0);
 #endif
-    NVIC_SetPriority(LLE_IRQn, 0xe0);   /* ±ØÐë±£Ö¤²»¿ÉÇÀ¶ÏÆäËûÈÎÎñ */
+    NVIC_SetPriority(LLE_IRQn, 0xe0);   /* å¿…é¡»ä¿è¯ä¸å¯æŠ¢æ–­å…¶ä»–ä»»åŠ¡ */
     portENABLE_INTERRUPTS();
     App_Printf("tmos ble start\n");
     Main_Circulation();
@@ -218,7 +218,7 @@ void tmos_task(void *pvParameters)
 
 /*******************************************************************************
  * Function Name  : main
- * Description    : Ö÷º¯Êý
+ * Description    : ä¸»å‡½æ•°
  * Input          : None
  * Output         : None
  * Return         : None
@@ -279,13 +279,13 @@ int main(void)
 
 void EXTI1_IRQHandler(void)
 {
-    /* ±¾º¯Êý¿ÉÒÔ×÷ÎªÔÚ±¾¹¤³ÌFreeRTOSÖÐµÄÖÐ¶Ïº¯ÊýÐ´·¨Ê¾Àý */
+    /* æœ¬å‡½æ•°å¯ä»¥ä½œä¸ºåœ¨æœ¬å·¥ç¨‹FreeRTOSä¸­çš„ä¸­æ–­å‡½æ•°å†™æ³•ç¤ºä¾‹ */
     portBASE_TYPE xHigherPriorityTaskWoken;
 
     if(EXTI_GetITStatus(EXTI_Line1) != RESET)
     {
         xSemaphoreGiveFromISR(xBinarySem, &xHigherPriorityTaskWoken);
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);   //¸ù¾ÝÐèÒª·¢ÆðÇÐ»»ÇëÇó
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);   //æ ¹æ®éœ€è¦å‘èµ·åˆ‡æ¢è¯·æ±‚
         EXTI->INTFR = EXTI_Line1;         /* EXTI_ClearITPendingBit(EXTI_Line1); Clear Flag */
     }
 }

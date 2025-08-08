@@ -30,7 +30,7 @@ else ()
     MESSAGE(FATAL_ERROR "Unsupported system!")
 endif ()
 
-project(ch32v208-freertos C CXX ASM)
+project(ch32v208-tracer C CXX ASM)
 # 定义芯片型号宏
 add_compile_definitions(CH32V20x_D8W)
 

@@ -814,7 +814,7 @@ _GLIBCXX_BEGIN_NAMESPACE_CONTAINER
 	return *__front->_M_valptr();
       }
 
-      // 23.3.4.5 modiﬁers:
+      // 23.3.4.5 modi铿乪rs:
 
       /**
        *  @brief  Constructs object in %forward_list at the front of the

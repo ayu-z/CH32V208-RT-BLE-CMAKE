@@ -17,7 +17,7 @@
 /*********************************************************************
  * LOCAL FUNCTIONS
  */
-/* Õâ¼¸¸öº¯ÊıÔÚ±¾FreeRTOSÀı³ÌÖĞ£¬ÔÚstartup_ch32v20x_D8W.SÖĞµÄ_vector_baseÖĞ£¬²»´ÓÍ³Ò»Èë¿ÚÖĞ¶Ïº¯Êı´¦Àí£¬ËùÒÔĞèÒªÉùÃ÷  __attribute__((interrupt("WCH-Interrupt-fast")))*/
+/* è¿™å‡ ä¸ªå‡½æ•°åœ¨æœ¬FreeRTOSä¾‹ç¨‹ä¸­ï¼Œåœ¨startup_ch32v20x_D8W.Sä¸­çš„_vector_baseä¸­ï¼Œä¸ä»ç»Ÿä¸€å…¥å£ä¸­æ–­å‡½æ•°å¤„ç†ï¼Œæ‰€ä»¥éœ€è¦å£°æ˜  __attribute__((interrupt("WCH-Interrupt-fast")))*/
 void NMI_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void HardFault_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void Break_Point_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));

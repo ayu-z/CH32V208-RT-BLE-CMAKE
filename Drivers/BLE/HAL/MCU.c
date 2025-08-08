@@ -226,7 +226,7 @@ tmosEvents HAL_ProcessEvent(tmosTaskID task_id, tmosEvents events)
 /*******************************************************************************
  * @fn      HAL_Init
  *
- * @brief   Ó²¼ş³õÊ¼»¯
+ * @brief   ç¡¬ä»¶åˆå§‹åŒ–
  *
  * @param   None.
  *
@@ -326,14 +326,14 @@ uint16_t HAL_GetInterTempValue(void)
 __attribute__((section(".highcode.os_enter_ble_protect")))
 void os_enter_ble_protect(void)
 {
-    /* ¹ØRTOSµ÷¶ÈÆ÷ */
+    /* å…³RTOSè°ƒåº¦å™¨ */
     NVIC_DisableIRQ(Software_IRQn);
 }
 
 __attribute__((section(".highcode.os_exit_ble_protect")))
 void os_exit_ble_protect(void)
 {
-    /* »Ö¸´RTOSµ÷¶ÈÆ÷ */
+    /* æ¢å¤RTOSè°ƒåº¦å™¨ */
     NVIC_EnableIRQ(Software_IRQn);
 }
 
